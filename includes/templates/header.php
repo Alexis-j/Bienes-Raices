@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienes Raices</title>
-    <link rel="stylesheet" href="build/css/app.css">
+    <link rel="stylesheet" href="/bienesraices/build/css/app.css">
 </head>
 <body>
-    <header class="header inicio">
+    <header class="header <?php echo $inicio ? 'inicio' : '' ?>">
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="/bienesraices/index.php">
@@ -29,6 +29,7 @@
 
                 </div>
         </div> <!--.barra-->
+        <?php if($inicio) { ?>
             <h1> Venta de Casa y Departamento Exlusivos de Lujos</h1>
-        </div>
+        </div> <?php } ?>
     </header>

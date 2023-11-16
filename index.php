@@ -1,4 +1,5 @@
 <?php
+    $inicio = true;
     include'./includes/templates/header.php';
 ?>
     <main class="contenedor seccion">
