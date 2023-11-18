@@ -1,5 +1,7 @@
 <?php
-    include'./includes/templates/header.php';
+    require 'includes/funciones.php';
+
+    incluirTemplate('header');
 ?>
     <main class="contenedor seccion contenido-centrado">
         <h1>Nuestro Blog</h1>
@@ -78,7 +80,7 @@
         </article>
     </main>
     <?php
-    include'./includes/templates/footer.php';
+    incluirTemplate('footer');
 ?>
     <script src="build/js/bundle.min.js"></script>
 </body>
