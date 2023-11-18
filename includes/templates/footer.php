@@ -8,4 +8,6 @@
             </nav>
         </div>
         <p class="copyright">Todos os Derechos Reservados <?php echo date('Y'); ?> &copy;</p>
+
+        <script src="/bienesraices/build/js/bundle.min.js"></script>
     </footer>

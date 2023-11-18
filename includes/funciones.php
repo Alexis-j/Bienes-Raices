@@ -2,8 +2,6 @@
 
 require 'app.php';
 
-function incluirTemplate( $nombre, $inicio = false ) {
-
-    echo TEMPLATES_URL . "/$nombre.php";
+function incluirTemplate( string $nombre, bool $inicio = false ) {
     include TEMPLATES_URL . "/$nombre.php";
 }
