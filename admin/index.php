@@ -47,7 +47,7 @@
                     <td><?php echo $propiedad['precio']; ?></td>
                     <td>
                         <a href="#" class="boton-rojo-block">eliminar</a>
-                        <a href="#" class="boton-amarillo-block">actualizar</a>	
+                        <a href="/bienesraices/admin/propiedades/actualizar.php?id=<?php echo $propiedad['id'];  ?>" class="boton-amarillo-block">actualizar</a>	
                     </td>
                 </tr>
                 <?php endwhile; ?>
