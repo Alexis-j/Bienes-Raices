@@ -30,11 +30,11 @@
                 <tr>
                     <td>1</td>
                     <td>Casa de lujo en el lago</td>	
-                    <td> <img src="/imagenes/cec496e0b7cd99a413b5604fd23369d1.jpg" alt="imagen-tabla"></td>
+                    <td> <img src="../imagenes/723c6f20b0227648c03bd51a93393a25.jpg" alt="imagen-tabla" class="imagen-tabla"></td>
                     <td>$120000</td>
                     <td>
-                        <a href="">eliminar</a>
-                        <a href="">actualizar</a>	
+                        <a href="#" class="boton-rojo-block">eliminar</a>
+                        <a href="#" class="boton-amarillo-block">actualizar</a>	
                     </td>
                 </tr>
             </tbody>
