@@ -106,7 +106,7 @@
     
             if($resultado) {
                 // redireccionar al usuario
-                header('Location: /bienesraices/admin/index.php');
+                header('Location: /bienesraices/admin/index.php?resultado=1');
             }
         }
         // echo "<prev>";
