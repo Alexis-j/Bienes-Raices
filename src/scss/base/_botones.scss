@@ -10,9 +10,17 @@
     @include boton($verde, inline-block);
 }
 
+.boton-gris {
+    @include boton($grisOscuro, inline-block);
+}
+
 .boton-rojo-block {
     @include boton($rojo, block);
 }
 .boton-verde-block {
     @include boton($verde, block);
+}
+
+.boton-gris {
+    @include btn( $blanco, inline-block, $grisOscuro);
 }
