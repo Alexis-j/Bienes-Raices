@@ -1,6 +1,5 @@
 <?php
 
-
     //importa la la conexion
     require '../includes/config/datbase.php';
     $db = conectarDB();
@@ -39,7 +38,7 @@
             </thead>
 
             <tbody><!--. mostrar los resultados-->
-            <?php  while($propiedad = mysqli_fetch_assoc($resultadoConsulta)): ?>
+            <?php  while($propiedad  = mysqli_fetch_assoc($resultadoConsulta)): ?>
                 <tr>
                     <td><?php echo $propiedad['id']; ?></td>
                     <td><?php echo $propiedad['titulo']; ?></td>	

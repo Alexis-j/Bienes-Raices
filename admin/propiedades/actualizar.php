@@ -1,5 +1,5 @@
 <?php
-
+    // validar que sea un id valido
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
 
@@ -11,6 +11,12 @@
     require '../../includes/config/datbase.php';
     $db = conectarDB();
 
+    // Obtener los datos de la propiedad
+    $consultaPropiedad = "SELECT * FROM propiedades WHERE id = ${id}";
+    $resultadoPropiedad = mysqli_query($db, $consultaPropiedad);
+    $propiedad = mysqli_fetch_assoc($resultadoPropiedad);
+
+    
     //consultar para obtener los vendedores
     $consulta = "SELECT * FROM vendedores";
     $resultado = mysqli_query($db, $consulta);
@@ -19,13 +25,14 @@
     //areglo con mensaje de errores
     $errores = [];
 
-        $titulo = '';
-        $precio = '';
-        $descripcion = '';
-        $habitaciones = '';
-        $wc = '';
-        $estacionamiento = '';
-        $vendedores_id = '';
+        $titulo = $propiedad['titulo'];
+        $precio = $propiedad['precio'];
+        $descripcion = $propiedad['descripcion'];
+        $habitaciones = $propiedad['habitaciones'];
+        $wc = $propiedad['wc'];
+        $estacionamiento = $propiedad['estacionamiento'];
+        $vendedores_id = $propiedad['vendedores_id'];
+        $imagenPropiedad = $propiedad['imagen'];
 
 
     //ejectuar el codigo despues de que el usuario envia el formulario
@@ -148,6 +155,8 @@
 
                 <label for="imagen">imagen</label>
                 <input type="file" id="imagen"  accept="image.jpeg, image/png" name="imagen">
+
+                <img src="/bienesraices/imagenes/<?php echo $imagenPropiedad ?>" class="imagen-small">
 
                 <label for="descripcion">Descripcion</label>
                 <textarea id="descripcion" name="descripcion" ><?php echo $descripcion ?></textarea>
