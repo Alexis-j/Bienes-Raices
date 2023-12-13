@@ -6,11 +6,12 @@
     <main class="contenedor seccion">
         <section class="seccion contenedor">
             <h2>Casas y Departamento en Ventas</h2>
-            <?php 
-                include 'includes/templates/anuncios.php'
+            <?php   
+            $limite = 12;
+            include 'includes/templates/anuncios.php'
             ?>
             <div class="alinear-derecha">
-                <a href="anuncio.html" class="boton-verde">
+                <a href="anuncio.php" class="boton-verde">
                     Ver Todas
                 </a>
             </div>
