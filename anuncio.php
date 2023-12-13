@@ -4,7 +4,7 @@
     $id = filter_var($id, FILTER_VALIDATE_INT);
 
     if	(!$id) {
-        header('Location: /bienesraices/admin/index.php');
+        header('Location: /bienesraices/index.php');
     }
     
     //importa la la conexion  
@@ -15,6 +15,10 @@
 
     //obtener los resultados
     $resultado = mysqli_query($db, $query);
+
+    if($resultado->num_rows === 0) {
+        header('Location: /bienesraices/index.php');
+    }	
     $propiedad = mysqli_fetch_assoc($resultado);
 
     require 'includes/funciones.php';
