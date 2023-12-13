@@ -7,7 +7,7 @@
         <section class="seccion contenedor">
             <h2>Casas y Departamento en Ventas</h2>
             <?php 
-                include 'includes/templates/anunciado.php'
+                include 'includes/templates/anuncios.php'
             ?>
             <div class="alinear-derecha">
                 <a href="anuncio.html" class="boton-verde">
