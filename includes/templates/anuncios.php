@@ -35,7 +35,7 @@
                         </li>
                     </ul>
 
-                    <a href="anuncio.php" class="boton-amarillo-block">
+                    <a href="anuncio.php?id=<?php echo $propiedad['id'];?>" class="boton-amarillo-block">
                         Ver Propiedad
                     </a>
                 </div> <!--.contenido-anuncio-->
@@ -43,6 +43,7 @@
     <?php endwhile; ?>
 </div> <!--contenedor-anuncios-->
 
-        <?php 
-            //cerrar la conexion
-        ?>
+    <?php 
+        //cerrar la conexion
+        mysqli_close($db);
+    ?>
