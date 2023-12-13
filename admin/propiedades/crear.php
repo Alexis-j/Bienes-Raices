@@ -22,15 +22,6 @@
     //ejectuar el codigo despues de que el usuario envia el formulario
     if($_SERVER['REQUEST_METHOD'] ===  'POST') {
 
-        // echo "<prev>";
-        // var_dump($_POST);
-        // echo "</prev>";
-
-        // echo "<prev>";
-        // var_dump($_FILES);
-        // echo "</prev>";
-
-
         $titulo = mysqli_real_escape_string( $db, $_POST['titulo'] );
         $precio = mysqli_real_escape_string( $db, $_POST['precio'] );
         $descripcion = mysqli_real_escape_string( $db, $_POST['descripcion'] );
@@ -109,9 +100,6 @@
                 header('Location: /bienesraices/admin/index.php?resultado=1');
             }
         }
-        // echo "<prev>";
-        // var_dump($errores);
-        // echo "</prev>";
     }
 
     require '../../includes/funciones.php';

@@ -16,11 +16,9 @@
 
 .boton-rojo-block {
     @include boton($rojo, block);
-}
-.boton-verde-block {
-    @include boton($verde, block);
+    width: 100%;
 }
 
-.boton-gris {
-    @include btn( $blanco, inline-block, $grisOscuro);
+.boton-verde-block {
+    @include boton($verde, block);
 }
