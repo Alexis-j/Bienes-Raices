@@ -30,7 +30,7 @@
             include 'includes/templates/anuncios.php'
         ?>
         <div class="alinear-derecha">
-            <a href="anuncios.html" class="boton-verde">
+            <a href="anuncios.php" class="boton-verde">
                 Ver Todas
             </a>
         </div>
@@ -40,7 +40,7 @@
     <section class="imagen-contacto">
         <h2>Encuetra la casa de tus sueñs</h2>
         <p>Llena el formulario de contacto y un asesor se pondrá en contacto contigo a la brevedad</p>
-        <a href="contacto.html" class="boton-amarillo">contactanos</a>
+        <a href="contacto.php" class="boton-amarillo">contactanos</a>
     </section>
 
     <div class="contenedor seccion seccion-inferior">

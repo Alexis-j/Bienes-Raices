@@ -18,7 +18,7 @@
 
     if($resultado->num_rows === 0) {
         header('Location: /bienesraices/index.php');
-    }	
+    }	 
     $propiedad = mysqli_fetch_assoc($resultado);
 
     require 'includes/funciones.php';

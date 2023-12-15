@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/bienesraices/build/css/app.css">
 </head>
 <body>
-    <header class="header <?php echo $inicio ? 'inicio' : '' ?>">
+    <header class="header <?php echo $inicio ? 'inicio' : '' ?>"> 
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="/bienesraices/index.php">
@@ -28,8 +28,7 @@
                     </nav>
 
                 </div>
-        </div> <!--.barra-->
-        <?php if($inicio) { ?>
-            <h1> Venta de Casa y Departamento Exlusivos de Lujos</h1>
-        </div> <?php } ?>
+            </div> <!--.barra-->
+            <?php echo $inicio ? '<h1>Venta de Casa y Departamento Exlusivos de Lujos</h1>' : '' ?>
+        </div> 
     </header>
