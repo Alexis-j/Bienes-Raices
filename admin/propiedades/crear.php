@@ -1,4 +1,13 @@
 <?php
+    //protejer url
+    require '../../includes/funciones.php';
+
+    $auth = estaAutenticado();
+
+    if(!$auth) {
+        header('Location: /bienesraices/index.php');
+    }
+
     require '../../includes/config/datbase.php';
     $db = conectarDB();
 
@@ -102,7 +111,6 @@
         }
     }
 
-    require '../../includes/funciones.php';
     incluirTemplate('header');
 ?>
     <main class="contenedor seccion">

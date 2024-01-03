@@ -8,9 +8,9 @@
     $errores = [];
 
     if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";
+        // echo "<pre>";
+        // var_dump($_POST);
+        // echo "</pre>";
 
         $email = mysqli_real_escape_string($db, filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL));
         $password = mysqli_real_escape_string($db, $_POST['password']);
@@ -22,7 +22,31 @@
             $errores[] = "El password es obligatorio";
         }
         if(empty($errores)) {
+            // revisar si el usuario existe
+            $query = "SELECT * FROM usuarios WHERE email = '$email'";
+            $resultado = mysqli_query($db, $query);
+
             
+            if( $resultado->num_rows){
+                //revisar si el password es correcto
+                $usuario = mysqli_fetch_assoc($resultado);
+
+                //verificar si el password es correcto o no
+                $auth = password_verify($password, $usuario['password']);
+
+                if($auth){
+                    //el usuario esta autenticado
+                    session_start();
+
+                    //llenar el arreglo de la sesion
+                    $_SESSION['usuario'] = $usuario['email'];
+                    $_SESSION['login'] = true;
+
+                    header('Location: /bienesraices/admin/index.php');
+                }
+            }else {
+                $errores[] = "El password es incorrecto";
+            }
         }
 
     }
