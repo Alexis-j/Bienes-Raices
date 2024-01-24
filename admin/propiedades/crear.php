@@ -1,6 +1,13 @@
 <?php
 
-include '../../includes/funciones.php';
+include '../../includes/app.php';
+
+use \App\Propiedad;
+
+$propiedad = new Propiedad;
+
+debuguear($propiedad);
+
 // Proteger esta ruta.
 
 $auth = estaAutenticado();
