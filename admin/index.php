@@ -2,10 +2,7 @@
 include '../includes/app.php';
 // Proteger esta ruta.
 
-$auth = estaAutenticado();
-if(!$auth) {
-    header('Location: /');
-}
+estaAutenticado();
 
 $db = conectarDb();
 

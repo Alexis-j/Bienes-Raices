@@ -3,31 +3,16 @@
 include '../../includes/app.php';
 
 use \App\Propiedad;
-
-$propiedad = new Propiedad;
-
-debuguear($propiedad);
-
 // Proteger esta ruta.
 
-$auth = estaAutenticado();
-if(!$auth) {
-    header('Location: /');
-}
+estaAutenticado();
 
 $db = conectarDb();
 
 $consulta = "SELECT * FROM vendedores";
 $resultado = mysqli_query($db, $consulta);
 
-// Leer datos del formulario... 
-
-// echo "<pre>";
-// var_dump($_POST);
-// echo "</pre>";
-
-// Validar 
-
+// arreglo con mensajes de errores
 $errores = [];
 
 $titulo = '';
@@ -38,10 +23,7 @@ $wc = '';
 $estacionamiento = '';
 $vendedor = null;
 
-// echo "<pre>";
-// var_dump($_POST);
-// echo "</pre>";
-
+// Ejecutar el codigo despues de que el usuario envia el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
@@ -51,14 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $estacionamiento = $_POST['estacionamiento'];
     $vendedor = $_POST['vendedorId'];
     $creado = date('Y/m/d');
-
-
-
-    // filter var va a filtrar una variable
-    // FILTER_VALIDATE_INT
-    // FILTER_SANITIZE_INT
-
-    // 
 
     $numero = "HOLA1";
 
@@ -109,19 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     $medida = 2 * 1000 * 1000;
-    // var_dump($imagen['size']);
-    // var_dump($imagen);
 
     if ($imagen['size'] > $medida) {
         $errores[] = 'La Imagen es muy grande';
     }
-
-
-
-
-    // echo "<pre>";
-    // var_dump($errores);
-    // echo "</pre>";
 
     // El array de errores esta vacio
     if (empty($errores)) {
@@ -133,22 +98,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             mkdir($carpetaImagenes);
         }
 
-
-
         if ($imagen) {
             $imagePath = $carpetaImagenes . md5(uniqid(rand(), true)) . '/' . $imagen['name'];
 
-            // var_dump($imagePath);
-
             mkdir(dirname($imagePath));
-
-            // var_dump($imagen);
 
             move_uploaded_file($imagen['tmp_name'], $imagePath);
 
             $rutaImagen = str_replace($carpetaImagenes, '', $imagePath);
 
-            // var_dump($rutaImagen);
         }
 
 
@@ -170,15 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Insertar en la BD.
-
-
 }
-
-
-
-
-
 ?>
 
 <?php

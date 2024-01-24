@@ -10,17 +10,11 @@
     $password = "123456";
 
     $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-    // echo strlen($passwordHash);
-
-
-    // echo $passwordHash;
-
-
-    $query = "INSERT INTO usuarios (email, password) VALUES('${email}', '${passwordHash}') ";
+    
+    $query = "INSERT INTO usuarios (email, password) VALUES('$email', '$passwordHash') ";
 
     echo $query;
 
     mysqli_query($db, $query);
-
 
 ?>
