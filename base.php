@@ -1,14 +1,12 @@
-<?php
-    require 'includes/funciones.php';
-
+<?php 
+    require 'includes/app.php';
     incluirTemplate('header');
 ?>
+
     <main class="contenedor seccion">
-        <h1>Base</h1>
+        <h1>Titulo Página</h1>
     </main>
-    <?php
+
+<?php 
     incluirTemplate('footer');
 ?>
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>

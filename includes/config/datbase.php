@@ -1,12 +1,12 @@
-<?php
-
+<?php 
 function conectarDB() : mysqli {
-    $db = mysqli_connect('localhost', 'root', 'llaves', 'bienesraices_crud');
+    $db = new mysqli('localhost', 'root', 'llaves', 'bienesraices_crud');
 
     if(!$db) {
-        echo "no se pudo conectar";
+        echo "Error no se pudo conectar";
         exit;
-    }
+    } 
 
     return $db;
+    
 }

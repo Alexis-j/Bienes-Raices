@@ -1,8 +1,8 @@
-<?php
-    require 'includes/funciones.php';
-
+<?php 
+    require 'includes/app.php';
     incluirTemplate('header');
 ?>
+
     <main class="contenedor seccion">
         <h1>Conoce sobre Nosotros</h1>
 
@@ -11,51 +11,44 @@
                 <picture>
                     <source srcset="build/img/nosotros.webp" type="image/webp">
                     <source srcset="build/img/nosotros.jpg" type="image/jpeg">
-                    <img loading="lazy" src="build/img/nosotros2.jpg" alt="imagen sobre nosotros">
+                    <img loading="lazy" src="build/img/nosotros.jpg" alt="Sobre Nosotros">
                 </picture>
             </div>
 
             <div class="texto-nosotros">
                 <blockquote>
-                    25 Años de Experiencia
+                    25 Años de experiencia
                 </blockquote>
 
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, inventore. Asperiores expedita illum ab sapiente a repellendus minus debitis eum, maxime cum quo excepturi doloribus suscipit ea obcaecati ducimus rerum!
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum quod culpa ipsam non velit beatae veniam alias harum enim commodi. Amet iure est similique molestias quibusdam excepturi dignissimos, ad numquam.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates obcaecati modi placeat laborum esse dicta perferendis quos dolore earum ex nostrum atque iure qui, nihil excepturi cum necessitatibus quia! Ut?
-                </p>
+                <p>Proin consequat viverra sapien, malesuada tempor tortor feugiat vitae. In dictum felis et nunc aliquet molestie. Proin tristique commodo felis, sed auctor elit auctor pulvinar. Nunc porta, nibh quis convallis sollicitudin, arcu nisl semper mi, vitae sagittis lorem dolor non risus. Vivamus accumsan maximus est, eu mollis mi. Proin id nisl vel odio semper hendrerit. Nunc porta in justo finibus tempor. Suspendisse lobortis dolor quis elit suscipit molestie. Sed condimentum, erat at tempor finibus, urna nisi fermentum est, a dignissim nisi libero vel est. Donec et imperdiet augue. Curabitur malesuada sodales congue. Suspendisse potenti. Ut sit amet convallis nisi.</p>
 
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas eos dolore blanditiis quibusdam repellat at rerum. Earum nihil quaerat voluptas est reiciendis, eaque doloribus neque placeat recusandae commodi, fugit dolore.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil quibusdam autem, 
-                </p>
+                <p>Aliquam lectus magna, luctus vel gravida nec, iaculis ut augue. Praesent ac enim lorem. Quisque ac dignissim sem, non condimentum orci. Morbi a iaculis neque, ac euismod felis. Fusce augue quam, fermentum sed turpis nec, hendrerit dapibus ante. Cras mattis laoreet nibh, quis tincidunt odio fermentum vel. Nulla facilisi.</p>
             </div>
         </div>
     </main>
 
     <section class="contenedor seccion">
-        <h1>Más  Sobre Nosotros</h1>
+        <h1>Más Sobre Nosotros</h1>
+
         <div class="iconos-nosotros">
             <div class="icono">
                 <img src="build/img/icono1.svg" alt="Icono seguridad" loading="lazy">
                 <h3>Seguridad</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas sint neque molestias laboriosam iste reprehenderit excepturi odit architecto ex vitae itaque veniam, sapiente exercitationem praesentium ad eius quasi repudiandae sunt?</p>
+                <p>Possimus, suscipit repudiandae. Autem deserunt aliquid deleniti sit minus consectetur obcaecati molestiae dolorem natus dolores reiciendis tempore, explicabo cum nobis laudantium. Voluptates?</p>
             </div>
             <div class="icono">
-                <img src="build/img/icono2.svg" alt="Icono seguridad" loading="lazy">
+                <img src="build/img/icono2.svg" alt="Icono Precio" loading="lazy">
                 <h3>Precio</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas sint neque molestias laboriosam iste reprehenderit excepturi odit architecto ex vitae itaque veniam, sapiente exercitationem praesentium ad eius quasi repudiandae sunt?</p>
+                <p>Possimus, suscipit repudiandae. Autem deserunt aliquid deleniti sit minus consectetur obcaecati molestiae dolorem natus dolores reiciendis tempore, explicabo cum nobis laudantium. Voluptates?</p>
             </div>
             <div class="icono">
-                <img src="build/img/icono3.svg" alt="Icono seguridad" loading="lazy">
-                <h3>Tiempo</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas sint neque molestias laboriosam iste reprehenderit excepturi odit architecto ex vitae itaque veniam, sapiente exercitationem praesentium ad eius quasi repudiandae sunt?</p>
+                <img src="build/img/icono3.svg" alt="Icono Tiempo" loading="lazy">
+                <h3>A Tiempo</h3>
+                <p>Possimus, suscipit repudiandae. Autem deserunt aliquid deleniti sit minus consectetur obcaecati molestiae dolorem natus dolores reiciendis tempore, explicabo cum nobis laudantium. Voluptates?</p>
             </div>
         </div>
     </section>
-    <?php
+
+<?php 
     incluirTemplate('footer');
 ?>
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>

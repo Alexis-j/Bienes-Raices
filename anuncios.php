@@ -1,25 +1,18 @@
-<?php
-    require 'includes/funciones.php';
-
+<?php 
+    require 'includes/app.php';
     incluirTemplate('header');
 ?>
+
     <main class="contenedor seccion">
-        <section class="seccion contenedor">
-            <h2>Casas y Departamento en Ventas</h2>
-            <?php   
-            $limite = 12;
-            include 'includes/templates/anuncios.php'
-            ?>
-            <div class="alinear-derecha">
-                <a href="anuncio.php" class="boton-verde">
-                    Ver Todas
-                </a>
-            </div>
-        </section>
+
+        <h2>Casas y Depas en Venta</h2>
+
+        <?php 
+            $limite = 10;
+            include 'includes/templates/anuncios.php';
+        ?>
     </main>
-    <?php
+
+<?php 
     incluirTemplate('footer');
 ?>
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>

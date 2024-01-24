@@ -1,65 +1,62 @@
-<?php
+<?php 
 
     $id = $_GET['id'];
     $id = filter_var($id, FILTER_VALIDATE_INT);
 
-    if	(!$id) {
-        header('Location: /bienesraices/index.php');
+    if(!$id) {
+        header('Location: /');
     }
-    
-    //importa la la conexion  
-    require 'includes/config/datbase.php';
-    $db = conectarDB();
-    //consultar la base de datos
-    $query = "SELECT * FROM propiedades WHERE id = $id";
 
-    //obtener los resultados
+    require 'includes/app.php';
+
+    $db = conectarDB();
+
+
+    // consultar
+    $query = "SELECT * FROM propiedades WHERE id = ${id}";
+
+    // obtener resultado
     $resultado = mysqli_query($db, $query);
 
-    if($resultado->num_rows === 0) {
-        header('Location: /bienesraices/index.php');
-    }	 
+    if(!$resultado->num_rows) {
+        header('Location: /');
+    } 
+    
     $propiedad = mysqli_fetch_assoc($resultado);
 
-    require 'includes/funciones.php';
+
+
     incluirTemplate('header');
 ?>
-
-
 
     <main class="contenedor seccion contenido-centrado">
         <h1><?php echo $propiedad['titulo']; ?></h1>
 
-        <img loading="lazy" src="/bienesraices/imagenes/<?php echo $propiedad['imagen']; ?>" alt="imagen">
+        <img loading="lazy" src="/imagenes/<?php echo $propiedad['imagen']; ?>" alt="imagen de la propiedad">
 
         <div class="resumen-propiedad">
-            <p class="precio"><?php echo $propiedad['precio']; ?></p>
+            <p class="precio">$<?php echo $propiedad['precio']; ?></p>
             <ul class="iconos-caracteristicas">
                 <li>
-                    <img class="icono" loading="lazy" src="build/img/icono_wc.svg" alt="Icono_wc">
+                    <img class="icono" loading="lazy" src="build/img/icono_wc.svg" alt="icono wc">
                     <p><?php echo $propiedad['wc']; ?></p>
                 </li>
                 <li>
-                    <img class="icono" loading="lazy" src="build/img/icono_estacionamiento.svg" alt="Icono-estacionamiento">
+                    <img class="icono" loading="lazy" src="build/img/icono_estacionamiento.svg" alt="icono estacionamiento">
                     <p><?php echo $propiedad['estacionamiento']; ?></p>
                 </li>
                 <li>
-                    <img class="icono" loading="lazy" src="build/img/icono_dormitorio.svg" alt="Icono icono_dormitorio">
+                    <img class="icono"  loading="lazy" src="build/img/icono_dormitorio.svg" alt="icono habitaciones">
                     <p><?php echo $propiedad['habitaciones']; ?></p>
                 </li>
             </ul>
 
-            <p>
             <?php echo $propiedad['descripcion']; ?>
-            </p>
-            <p><?php echo $propiedad['descripcion']; ?></p>
         </div>
     </main>
-    <?php
+
+<?php 
     mysqli_close($db);
 
     incluirTemplate('footer');
 ?>
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>

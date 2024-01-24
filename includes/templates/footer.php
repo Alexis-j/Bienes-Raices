@@ -7,7 +7,10 @@
                 <a href="contacto.php">Contacto</a>
             </nav>
         </div>
-        <p class="copyright">Todos os Derechos Reservados <?php echo date('Y'); ?> &copy;</p>
 
-        <script src="/bienesraices/build/js/bundle.min.js"></script>
+        <p class="copyright">Todos los derechos Reservados <?php echo date('Y'); ?> &copy;</p>
     </footer>
+
+    <script src="/build/js/bundle.min.js"></script>
+</body>
+</html>

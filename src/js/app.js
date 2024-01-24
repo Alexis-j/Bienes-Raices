@@ -1,46 +1,44 @@
 document.addEventListener('DOMContentLoaded', function() {
-    addEventListener();
+
+    eventListeners();
 
     darkMode();
 });
 
-function darkMode() { 
+function darkMode() {
 
     const prefiereDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
-    
-    // conole.log(prefiereDarkMode.matches);
+
+    // console.log(prefiereDarkMode.matches);
 
     if(prefiereDarkMode.matches) {
         document.body.classList.add('dark-mode');
-    }else {
+    } else {
         document.body.classList.remove('dark-mode');
     }
-    
+
     prefiereDarkMode.addEventListener('change', function() {
         if(prefiereDarkMode.matches) {
             document.body.classList.add('dark-mode');
-        }else {
+        } else {
             document.body.classList.remove('dark-mode');
         }
     });
 
-
     const botonDarkMode = document.querySelector('.dark-mode-boton');
-
     botonDarkMode.addEventListener('click', function() {
         document.body.classList.toggle('dark-mode');
     });
 }
 
-
-function addEventListener() {
+function eventListeners() {
     const mobileMenu = document.querySelector('.mobile-menu');
-    mobileMenu.addEventListener('click', navegacionResponsive); {
-    };
+
+    mobileMenu.addEventListener('click', navegacionResponsive);
 }
 
-function navegacionResponsive () {
+function navegacionResponsive() {
     const navegacion = document.querySelector('.navegacion');
-    navegacion.classList.toggle('mostrar');
-}
 
+    navegacion.classList.toggle('mostrar')
+}
