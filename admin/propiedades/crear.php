@@ -25,6 +25,13 @@ $vendedor = null;
 
 // Ejecutar el codigo despues de que el usuario envia el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $propiedad = new Propiedad($_POST);
+
+    $propiedad->guardar();
+    
+    debuguear($propiedad);
+
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
     $descripcion = $_POST['descripcion'];
