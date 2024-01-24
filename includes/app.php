@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require 'funciones.php';
 require 'config/datbase.php';
@@ -9,5 +9,3 @@ use App\Propiedad;
 $propiedad = new Propiedad;
 
 var_dump($propiedad);
-
-?>

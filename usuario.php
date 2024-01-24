@@ -1,22 +1,26 @@
-<?php
+<?php 
 
-// Importar la conexión
-// Incluye el header
-require 'includes/app.php';
-
-$db = conectarDB();
-
-// Crear un email y password
-$email = "correo@correo.com";
-$password = "123456";
-
-$passwordHash = password_hash($password, PASSWORD_BCRYPT);
+    // Consultar la propiedad
+    include 'includes/app.php';
+    $db = conectarDb();
 
 
-// Query para crear el usuario
-$query = " INSERT INTO usuarios (email, password) VALUES ( '${email}', '${passwordHash}'); ";
+    // Inserta un admin
+    $email = "correo@correo.com";
+    $password = "123456";
 
-// echo $query;
+    $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+    // echo strlen($passwordHash);
 
-// Agregarlo a la base de datos
-mysqli_query($db, $query);
+
+    // echo $passwordHash;
+
+
+    $query = "INSERT INTO usuarios (email, password) VALUES('${email}', '${passwordHash}') ";
+
+    echo $query;
+
+    mysqli_query($db, $query);
+
+
+?>

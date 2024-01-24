@@ -1,18 +1,17 @@
-<?php 
-    require 'includes/app.php';
-    incluirTemplate('header');
+<?php
+include 'includes/app.php';
+incluirTemplate('header');
 ?>
 
-    <main class="contenedor seccion">
+<main class="seccion contenedor">
+    <h2 class="fw-300 centrar-texto">Casas y Depas en Venta</h2>
 
-        <h2>Casas y Depas en Venta</h2>
+    <?php 
+        $limite = 10;
+        include 'includes/templates/anuncios.php';
+    ?>
+</main>
 
-        <?php 
-            $limite = 10;
-            include 'includes/templates/anuncios.php';
-        ?>
-    </main>
-
-<?php 
-    incluirTemplate('footer');
+<?php
+incluirTemplate('footer');
 ?>
