@@ -19,10 +19,10 @@ $propiedad = mysqli_fetch_assoc($resultado);
 incluirTemplate('header');
 ?>
 
-<h1 class="fw-300 centrar-texto"><?php echo $propiedad['titulo']; ?></h1>
-<img src="/imagenes/<?php echo $propiedad['imagen']; ?>" alt="Imagen Anuncio">
-
 <main class="contenedor seccion contenido-centrado">
+    <h1 class="fw-300 centrar-texto"><?php echo $propiedad['titulo']; ?></h1>
+    <img src="/imagenes/<?php echo $propiedad['imagen']; ?>" alt="Imagen Anuncio">
+
     <div class="resumen-propiedad">
         <p class="precio">$<?php echo $propiedad['precio']; ?></p>
         <ul class="iconos-caracteristicas">

@@ -8,8 +8,6 @@ if(!$auth) {
     header('Location: /');
 }
 
-require '../../includes/config/database.php';
-
 $db = conectarDb();
 
 $consulta = "SELECT * FROM vendedores";
