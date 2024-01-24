@@ -42,13 +42,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if($auth) {
                 // Autenticado.
-
+                session_start();
                 // Para autenticar usuarios estaremos utilizando la superglobal SESSION, esta va a mantener eso una sesión activa en caso de que sea valida.
 
-                session_start();
                 $_SESSION['usuario'] = $usuario['email'];
                 $_SESSION['id'] =$usuario['id'];
                 $_SESSION['login'] = true;
+
+                header('Location: /admin');
             } else {
                 // No autenticado
                 $errores[] = 'El Password es incorrecto';

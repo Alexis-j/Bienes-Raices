@@ -1,13 +1,11 @@
 <?php
-include '../includes/funciones.php';
+include '../includes/app.php';
 // Proteger esta ruta.
 
 $auth = estaAutenticado();
 if(!$auth) {
     header('Location: /');
 }
-
-require '../includes/config/database.php';
 
 $db = conectarDb();
 
