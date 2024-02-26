@@ -2,7 +2,7 @@
 
 include '../../includes/app.php';
 
-use \App\Propiedad;
+use App\Propiedad;
 // Proteger esta ruta.
 
 estaAutenticado();
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $propiedad->guardar();
     
-    debuguear($propiedad);
+    // debuguear($propiedad);
 
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $habitaciones = $_POST['habitaciones'];
     $wc = $_POST['wc'];
     $estacionamiento = $_POST['estacionamiento'];
-    $vendedor = $_POST['vendedorId'];
+    $vendedores_id = $_POST['vendedores_id'];
     $creado = date('Y/m/d');
 
     $numero = "HOLA1";
@@ -116,19 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
 
-
-
-
-        // Insertar en la BD.
-        // echo "No hay errores";
-
-        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, vendedorId, creado  ) VALUES ( '$titulo', '$precio', '$rutaImagen', '$descripcion',  '$habitaciones', '$wc', '$estacionamiento', '$vendedor', '$creado' )";
-
-        echo $query;
-
         $resultado = mysqli_query($db, $query) or die(mysqli_error($db));
-        // var_dump($resultado);
-        // printf("Nuevo registro con el id %d.\n", mysqli_insert_id($db));
 
         if ($resultado) {
             header('location: /admin/index.php?mensaje=1');
@@ -189,11 +177,11 @@ incluirTemplate('header');
             <legend>Información Vendedor:</legend>
             <label for="nombre_vendedor">Nombre:</label>
 
-            <select name="vendedorId" id="nombre_vendedor">
+            <select name="vendedorId" id="nombre_vendedor"> <!-- Cambiado de name="vendedores_id" a name="vendedorId" -->
                 <option selected value="">-- Seleccione --</option>
                 <?php while ($row = mysqli_fetch_assoc($resultado)) : ?>
-                    <option <?php echo $vendedor === $row['id'] ? 'selected' : '' ?> value="<?php echo $row['id']; ?>"><?php echo $row['nombre'] . " " . $row['apellido']; ?>
-                    <?php endwhile; ?>
+                    <option <?php echo $vendedorId === $row['id'] ? 'selected' : '' ?> value="<?php echo $row['id']; ?>"><?php echo $row['nombre'] . " " . $row['apellido']; ?></option> <!-- Cambiado de $vendedores_id a $vendedorId -->
+                <?php endwhile; ?>
             </select>
         </fieldset>
 
