@@ -1,3 +1,4 @@
+<!-- index.php -->
 <?php
 include '../includes/app.php';
 // Proteger esta ruta.
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // echo $query;
 
-    $resultado = mysqli_query($db, $query) or die(mysqli_error($db));
+    $resultado = mysqli_query($db, $query);
     // var_dump($resultado);
     // printf("Nuevo registro con el id %d.\n", mysqli_insert_id($db));
 

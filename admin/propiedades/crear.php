@@ -1,3 +1,4 @@
+<!-- crear.php    -->
 <?php
 
 include '../../includes/app.php';
@@ -177,10 +178,10 @@ incluirTemplate('header');
             <legend>Información Vendedor:</legend>
             <label for="nombre_vendedor">Nombre:</label>
 
-            <select name="vendedorId" id="nombre_vendedor"> <!-- Cambiado de name="vendedores_id" a name="vendedorId" -->
+            <select name="vendedores_id" id="nombre_vendedor"> 
                 <option selected value="">-- Seleccione --</option>
                 <?php while ($row = mysqli_fetch_assoc($resultado)) : ?>
-                    <option <?php echo $vendedorId === $row['id'] ? 'selected' : '' ?> value="<?php echo $row['id']; ?>"><?php echo $row['nombre'] . " " . $row['apellido']; ?></option> <!-- Cambiado de $vendedores_id a $vendedorId -->
+                    <option <?php echo $vendedorId === $row['id'] ? 'selected' : '' ?> value="<?php echo $row['id']; ?>"><?php echo $row['nombre'] . " " . $row['apellido']; ?></option> 
                 <?php endwhile; ?>
             </select>
         </fieldset>

@@ -1,12 +1,11 @@
 <?php
-
 namespace App;
 
 class Propiedad {
 
     // Base de datos
     protected static $db; 
-    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedorId'];
+    protected static $columnasDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamiento', 'creado', 'vendedores_id']; // Aquí se corrigió el nombre de la columna
 
     public $id;
     public $titulo;
@@ -17,7 +16,7 @@ class Propiedad {
     public $wc;
     public $estacionamiento;
     public $creado;
-    public $vendedorId;
+    public $vendedores_id;
 
 
     public static function setDB($database){
@@ -26,8 +25,8 @@ class Propiedad {
 
     // Constructor
     public function __construct($args = []) {
-        $this->id = $args['id'] ?? '';  // Si no hay id, entonces es null.
-        $this->titulo = $args['titulo'] ?? '';  // Si no hay titulo, entonces es un string vacio.
+        $this->id = $args['id'] ?? '';
+        $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '';
         $this->imagen = $args['imagen'] ?? 'imagen.jpg';
         $this->descripcion = $args['descripcion'] ?? '';
@@ -35,28 +34,25 @@ class Propiedad {
         $this->wc = $args['wc'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
         $this->creado = date('Y/m/d');
-        $this->vendedorId = $args['vendedorId'] ?? '';    }
-
-    public function guardar(){
-
-        // Sanitizar los datos
-        $atributos = $this->sanitizarAtributos();        
-
-        // Insertar en la base de datos
-        $query = "INSERT INTO propiedades ( ";
-        $query .= join(', ', array_keys($atributos)); 
-        $query .= " ) VALUES (' "; 
-        $query .= join(', ', array_values($atributos)); 
-        $query .= " ')";
-
-        debuguear($query);
-        
-        $resultado = self::$db->query($query);
-
-        debuguear($resultado);
+        $this->vendedores_id= $args['vendedorId'] ?? ''; 
     }
 
-//identificar y unir los atributos de la clase con los valores de la base de datos
+    public function guardar(){
+        // Sanitizar los datos
+        $atributos = $this->sanitizarAtributos();
+
+        // Insertar en la base de datos
+        $query = " INSERT INTO propiedades ( ";
+        $query .= join(', ', array_keys($atributos));
+        $query .= " ) VALUES (' ";
+        $query .= join("', '", array_values($atributos));
+        $query .= " ') ";
+
+        $resultado = self::$db->query($query);
+        debuguear($resultado);
+    }
+    
+    //identificar y unir los atributos de la clase con los valores de la base de datos
     public function atributos(){
         $atributos = [];
         foreach (self::$columnasDB as $columna) {
@@ -66,20 +62,16 @@ class Propiedad {
         return $atributos;
     }
 
-
     //sanitizar los Atributos
     public function sanitizarAtributos() {
-    $atributos = $this->atributos();
-    $sanitizado = [];
+        $atributos = $this->atributos();
+        $sanitizado = [];
 
-    foreach ($atributos as $key => $value) {
-        $sanitizado[$key] = self::$db->escape_string($value);
-    }
+        foreach ($atributos as $key => $value) {
+            $sanitizado[$key] = self::$db->escape_string($value);
+        }
 
-    return $sanitizado;
+        return $sanitizado;
     }
 }
-
-
-
-
+?>

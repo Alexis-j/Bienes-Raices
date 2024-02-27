@@ -26,12 +26,6 @@ $propiedad = mysqli_fetch_assoc($resultado);
 $consulta = "SELECT * FROM vendedores";
 $resultado = mysqli_query($db, $consulta);
 
-// Leer datos del formulario... 
-
-// echo "<pre>";
-// var_dump($_POST);
-// echo "</pre>";
-
 // Validar 
 
 $errores = [];
@@ -45,15 +39,7 @@ $estacionamiento = $propiedad['estacionamiento'];
 $vendedor = $propiedad['vendedorId'];
 
 
-// echo "<pre>";
-// var_dump($_POST);
-// echo "</pre>";
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // echo "<pre>";
-    // var_dump($_POST);
-    // echo "</pre>";
 
     $titulo = $_POST['titulo'];
     $precio = $_POST['precio'];
@@ -90,25 +76,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $medida = 2 * 1000 * 1000;
-    // var_dump($imagen['size']);
-    // var_dump($imagen);
 
     if ($imagen['size'] > $medida) {
         $errores[] = 'La Imagen es muy grande';
     }
 
-
-
-
-    // echo "<pre>";
-    // var_dump($errores);
-    // echo "</pre>";
-
     // El array de errores esta vacio
     if (empty($errores)) {
         // Si hay una imagen NUEVA, entonces borrar la anterior.
-
-  
 
         //Subir la imagen
         $carpetaImagenes = '../../imagenes/';
