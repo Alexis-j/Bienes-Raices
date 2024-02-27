@@ -40,18 +40,24 @@ class Propiedad {
     public function guardar(){
 
         // Sanitizar los datos
-        $atributos = $this->sanitizarAtributos();
+        $atributos = $this->sanitizarAtributos();        
 
-        $query = "INSERT INTO propiedades (titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedores_id) 
-        VALUES ('$this->titulo', '$this->precio', '$this->imagen', '$this->descripcion', '$this->habitaciones', '$this->wc', '$this->estacionamiento', '$this->creado', '$this->vendedorId')";
+        // Insertar en la base de datos
+        $query = "INSERT INTO propiedades ( ";
+        $query .= join(', ', array_keys($atributos)); 
+        $query .= " ) VALUES (' "; 
+        $query .= join(', ', array_values($atributos)); 
+        $query .= " ')";
+
+        debuguear($query);
         
         $resultado = self::$db->query($query);
 
         debuguear($resultado);
     }
 
-
-    public function Atributos(){
+//identificar y unir los atributos de la clase con los valores de la base de datos
+    public function atributos(){
         $atributos = [];
         foreach (self::$columnasDB as $columna) {
             if ($columna === 'id') continue;
@@ -60,8 +66,10 @@ class Propiedad {
         return $atributos;
     }
 
+
+    //sanitizar los Atributos
     public function sanitizarAtributos() {
-    $atributos = $this->Atributos();
+    $atributos = $this->atributos();
     $sanitizado = [];
 
     foreach ($atributos as $key => $value) {
