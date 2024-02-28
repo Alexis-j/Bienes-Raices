@@ -34,7 +34,7 @@ class Propiedad {
         $this->wc = $args['wc'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
         $this->creado = date('Y/m/d');
-        $this->vendedores_id= $args['vendedorId'] ?? ''; 
+        $this->vendedores_id= $args['vendedores_id'] ?? ''; 
     }
 
     public function guardar(){
@@ -48,7 +48,9 @@ class Propiedad {
         $query .= join("', '", array_values($atributos));
         $query .= " ') ";
 
+        
         $resultado = self::$db->query($query);
+        
         debuguear($resultado);
     }
     

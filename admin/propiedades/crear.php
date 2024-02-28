@@ -1,4 +1,3 @@
-<!-- crear.php    -->
 <?php
 
 include '../../includes/app.php';
