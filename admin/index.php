@@ -2,17 +2,16 @@
 <?php
 include '../includes/app.php';
 // Proteger esta ruta.
-
 estaAutenticado();
 
-$db = conectarDb();
+use App\Propiedad;
 
-$query = "SELECT * FROM propiedades";
-$resultado = mysqli_query($db, $query);
+// implementar un metodo para obtener todas las propiedades
+$propiedades = Propiedad::all();
 
 
 // Validar la URL 
-$mensaje = $_GET['mensaje'] ?? null;
+$resultado = $_GET['resultado'] ?? null;
 
 
 // Importar el Template
@@ -52,9 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     <?php
-        if ($mensaje == 1) {
+        if ($resultado == 1) {
             echo '<p class="alerta exito">Anuncio Creado Correctamente</p>';
-        } else if ($mensaje == 2) {
+        } else if ($resultado == 2) {
         echo '<p class="alerta exito">Anuncio Actualizado Correctamente</p>';
         }
     ?>
