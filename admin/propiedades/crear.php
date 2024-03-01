@@ -1,78 +1,85 @@
 <?php
 
-include '../../includes/app.php';
+    include '../../includes/app.php';
 
-use App\Propiedad;
-// Proteger esta ruta.
+    use App\Propiedad;
+    // Proteger esta ruta.
+    use Intervention\Image\ImageManagerStatic as Image;
 
-estaAutenticado();
+    estaAutenticado();
 
-$db = conectarDb();
+    $db = conectarDb();
 
-$consulta = "SELECT * FROM vendedores";
-$resultado = mysqli_query($db, $consulta);
+    $consulta = "SELECT * FROM vendedores";
+    $resultado = mysqli_query($db, $consulta);
 
-// arreglo con mensajes de errores
-$errores = Propiedad::getErrores();
+    // arreglo con mensajes de errores
+    $errores = Propiedad::getErrores();
 
-$titulo = '';
-$precio = '';
-$descripcion = '';
-$habitaciones = '';
-$wc = '';
-$estacionamiento = '';
-$vendedor = null;
+    $titulo = '';
+    $precio = '';
+    $descripcion = '';
+    $habitaciones = '';
+    $wc = '';
+    $estacionamiento = '';
+    $vendedor = '';
 
 // Ejecutar el codigo despues de que el usuario envia el formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $propiedad = new Propiedad($_POST);
-
-
-    $errores = $propiedad->validar();
-
-    
-    // El array de errores esta vacio
-    if (empty($errores)) {
-
-        $propiedad->guardar();
-    
-        // Asignar Files hacia una variable
-        $imagen = $_FILES['imagen'];
-
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
-        //Subir la imagen
+        // Crea una nueva instanca de la clase Propiedad
+        $propiedad = new Propiedad($_POST);
+
+        /*SUBIDA DE ARCHIVOS*/
+        //crea la carpeta de imagenes
         $carpetaImagenes = '../../imagenes/';
-        $rutaImagen = '';
+
         if (!is_dir($carpetaImagenes)) {
             mkdir($carpetaImagenes);
         }
+        
+        // Generar un nombre unico
+        $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg";
 
-        if ($imagen) {
-            $imagePath = $carpetaImagenes . md5(uniqid(rand(), true)) . '/' . $imagen['name'];
-
-            mkdir(dirname($imagePath));
-
-            move_uploaded_file($imagen['tmp_name'], $imagePath);
-
-            $rutaImagen = str_replace($carpetaImagenes, '', $imagePath);
-
+        // Setear la imagen
+        // Realiza un resize a la imagen
+        if ($_FILES['imagen']['tmp_name']) {
+            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+            $propiedad->setImagen($nombreImagen);
         }
 
-        $resultado = mysqli_query($db, $query) or die(mysqli_error($db));
+        // Validar
+        $errores = $propiedad->validar();
 
-        if ($resultado) {
-            header('location: /admin/index.php?mensaje=1');
+        // El array de errores esta vacio
+        if (empty($errores)) {
+
+            //crear la carpeta para subir imagenes
+
+            if (!is_dir(CARPETA_IMAGENES)) {
+                mkdir(CARPETA_IMAGENES);
+            }
+        
+            // Guardar la imagen en el servidor
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
+
+            //guardar en la base de datos
+            $resultado = $propiedad->guardar();
+
+            //mesaje de exito o error
+            if ($resultado) {
+                // Almacenar la imagen
+                header('Location: /admin?resultado=1');
+            }
         }
     }
 
-}
+    incluirTemplate('header');
 ?>
 
 <?php
 $nombrePagina = 'Crear Propiedad';
 
-incluirTemplate('header');
 ?>
 
 <h1 class="fw-300 centrar-texto">Administración - Nueva Propiedad</h1>
@@ -102,7 +109,7 @@ incluirTemplate('header');
             <label for="descripcion">Descripción:</label>
             <textarea name="descripcion" id="descripcion"><?php echo $descripcion; ?></textarea>
 
-        </fieldset>
+        </fieldset> 
 
 
         <fieldset>

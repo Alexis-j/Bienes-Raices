@@ -2,18 +2,15 @@
     "name": "tillo/bienesraices",
     "description": "creado un proyecto con programacion orientada a objetos",
     "type": "project",
-    "autoload": {
-        "psr-4": {
-            "Tillo\\Bienesraices\\": "src/"
-        }
-    },
     "authors": [
         {
             "name": "Alexis Jimnez Castillo",
             "email": "alexis.jcastillo@outlook.com"
         }
     ],
-    "require": {},
+    "require": {
+        "intervention/image": "2"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "./classes"
