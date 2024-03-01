@@ -13,7 +13,7 @@ $consulta = "SELECT * FROM vendedores";
 $resultado = mysqli_query($db, $consulta);
 
 // arreglo con mensajes de errores
-$errores = [];
+$errores = Propiedad::getErrores();
 
 $titulo = '';
 $precio = '';
@@ -28,77 +28,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $propiedad = new Propiedad($_POST);
 
-    $propiedad->guardar();
+
+    $errores = $propiedad->validar();
+
     
-    // debuguear($propiedad);
-
-    $titulo = $_POST['titulo'];
-    $precio = $_POST['precio'];
-    $descripcion = $_POST['descripcion'];
-    $habitaciones = $_POST['habitaciones'];
-    $wc = $_POST['wc'];
-    $estacionamiento = $_POST['estacionamiento'];
-    $vendedores_id = $_POST['vendedores_id'];
-    $creado = date('Y/m/d');
-
-    $numero = "HOLA1";
-
-    // Sanitizar va a hacer eso, limpiar los datos 
-    $estacionamiento = filter_var($numero, FILTER_SANITIZE_NUMBER_INT);
-
-    // Validar va a revisar que sea un tipo de dato valido.
-    $estacionamiento = filter_var($numero, FILTER_VALIDATE_INT);
-
-
-    // Existe otra opción llamada mysqli_real_escape_string, esta función va a eliminar los caracteres especiales o escaparlos para hacerlos compatibles con la base de datos.
-
-    $titulo = mysqli_real_escape_string( $db, $_POST['titulo'] );
-
-    // Todo esto de escapar datos y asegurarlos se puede evitar con Sentencias preparadas y PDO
-
-    exit;
-
-
-    $imagen = $_FILES['imagen'] ?? null;
-
-
-    if (!$titulo) {
-        $errores[] = 'Debes añadir un Titulo';
-    }
-    if (!$precio) {
-        $errores[] = 'El Precio es Obligatorio';
-    }
-    if (strlen($descripcion) < 50) {
-        $errores[] = 'La Descripción es obligatoria y debe tener al menos 50 caracteres';
-    }
-    if (!$habitaciones) {
-        $errores[] = 'La Cantidad de Habitaciones es obligatoria';
-    }
-    if (!$wc) {
-        $errores[] = 'La cantidad de WC es obligatoria';
-    }
-    if (!$estacionamiento) {
-        $errores[] = 'La cantidad de lugares de estacionamiento es obligatoria';
-    }
-    if (!$vendedor) {
-        $errores[] = 'Elige un vendedor';
-    }
-
-    if (!$imagen['name'] || !str_contains($imagen['type'],  'image')) {
-        $errores[] = 'Imagen no válida';
-    }
-
-
-    $medida = 2 * 1000 * 1000;
-
-    if ($imagen['size'] > $medida) {
-        $errores[] = 'La Imagen es muy grande';
-    }
-
     // El array de errores esta vacio
     if (empty($errores)) {
-        //Subir la imagen
 
+        $propiedad->guardar();
+    
+        // Asignar Files hacia una variable
+        $imagen = $_FILES['imagen'];
+
+        
+        //Subir la imagen
         $carpetaImagenes = '../../imagenes/';
         $rutaImagen = '';
         if (!is_dir($carpetaImagenes)) {
