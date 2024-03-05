@@ -1,7 +1,6 @@
 <!-- index.php -->
 <?php
 include '../includes/app.php';
-// Proteger esta ruta.
 estaAutenticado();
 
 use App\Propiedad;
@@ -9,37 +8,24 @@ use App\Propiedad;
 // implementar un metodo para obtener todas las propiedades
 $propiedades = Propiedad::all();
 
-
 // Validar la URL 
 $resultado = $_GET['resultado'] ?? null;
 
-
 // Importar el Template
-
 incluirTemplate('header');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    echo "<pre>";
-    var_dump($_POST);
-    echo "</pre>";
 
     // Sanitizar número entero
     $id = $_POST['id_eliminar'];
     $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
-    // Eliminar... 
-
-    $query = "DELETE FROM propiedades WHERE id = '${id}'";
-
-    // echo $query;
+    $query = "DELETE FROM propiedades WHERE id = '$id'";
 
     $resultado = mysqli_query($db, $query);
-    // var_dump($resultado);
-    // printf("Nuevo registro con el id %d.\n", mysqli_insert_id($db));
 
     if ($resultado) {
-        header('location: /admin');
+        header('location: /admin?resulado=1');
     }
 
 }
@@ -48,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <h1 class="fw-300 centrar-texto">Administración</h1>
 
 <main class="contenedor seccion contenido-centrado">
-
 
     <?php
         if ($resultado == 1) {

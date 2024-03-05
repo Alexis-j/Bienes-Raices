@@ -43,6 +43,16 @@ class Propiedad {
     }
 
     public function guardar(){
+        if(isset($this->id)){
+            $resultado = $this->actualizar();
+        } else {
+            $resultado = $this->crear();
+        } 
+
+    }
+
+    // Almacenar la nueva propiedad
+    public function crear(){
         // Sanitizar los datos
         $atributos = $this->sanitizarAtributos();
 
@@ -58,7 +68,29 @@ class Propiedad {
         
         return $resultado;   
 }
-    
+    public function actualizar(){
+        // Sanitizar los datos
+        $atributos = $this->sanitizarAtributos();
+
+        $valores = [];
+        foreach ($atributos as $key => $value) {
+            $valores[] = "{$key} = '{$value}'";
+        }
+
+        // Insertar en la base de datos
+        $query = " UPDATE propiedades SET ";
+        $query .= join(', ', $valores);
+        $query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
+        $query .= " LIMIT 1 ";
+
+        $resultado = self::$db->query($query);
+        
+        // Redireccionar al usuario
+        if ($resultado) {
+            header('location: /admin/index.php?mensaje=2');
+        }
+    }
+
     //identificar y unir los atributos de la clase con los valores de la base de datos
     public function atributos(){
         $atributos = [];
@@ -84,6 +116,15 @@ class Propiedad {
 
     //subida de archivos
     public function setImagen($imagen){
+
+        // Eliminar la imagen previa
+        if (isset($this->id)) {
+            //comprobar si la imagen existe
+            $existeArchivo = file_exists(CARPETA_IMAGENES . $this->imagen);
+            if ($existeArchivo) {
+                unlink(CARPETA_IMAGENES . $this->imagen);
+            }
+        }
         //asifgnar al atributo de imagen el nombre de la imagen
         if ($imagen) {
             $this->imagen = $imagen;
@@ -167,6 +208,16 @@ class Propiedad {
         }
         
         return $objeto;
+    }
+
+    //sincrioniza el objeto en memoria con los datos de la base de datos
+
+    public function sincronizar($args = []){
+        foreach ($args as $key => $value) {
+            if (property_exists($this, $key) && !is_null($value)) {
+                $this->$key = $value;
+            }
+        }
     }
 }
 ?>

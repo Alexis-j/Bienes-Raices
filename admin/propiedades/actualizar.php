@@ -1,143 +1,66 @@
 <?php
 
-use App\Propiedad;
+    require '../../includes/app.php';
+    use App\Propiedad;
+    use App\Vendedor;
 
-include '../../includes/app.php';
-// Proteger esta ruta.
-estaAutenticado();
+    // Importar Intervention Image
+    use Intervention\Image\ImageManagerStatic as Image;
 
-// Verificar el id
-$id =  $_GET['id'];
-$id = filter_var($id, FILTER_VALIDATE_INT);
-if(!$id) {
-    header('Location: /admin');
+    estaAutenticado();
+    // Validar la URL por ID válido
+    $id = $_GET['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+
+    if(!$id) {
+        header('Location: /admin');
+    }
+    // Obtener los datos de la propiedad
+    $propiedad = Propiedad::find($id);
+
+    // obtener vendedores
+    $consulta = "SELECT * FROM vendedores";
+    $resultado = mysqli_query($db, $consulta);
+
+// Arreglo con mensajes de errores
+$errores = Propiedad::getErrores();
+
+// Ejecutar el código después de que el usuario envia el formulario
+if($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Asignar los atributos
+    $args = $_POST['propiedad'];
+
+    $propiedad->sincronizar($args);
+
+
+    // Validación
+    $errores = $propiedad->validar();
+
+    // Subida de archivos
+    // Generar un nombre único
+    $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg";
+
+    if($_FILES['propiedad']['tmp_name']['imagen']) {
+        $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
+        $propiedad->setImagen($nombreImagen);
+    }
+    
+    if(empty($errores)) {
+        // Almacenar la imagen
+        if($_FILES['propiedad']['tmp_name']['imagen']) {
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
+        }
+
+        $propiedad->guardar();
+    }
 }
-
-$db = conectarDb();
-
-// Obtener la propiedad
-$propiedad = Propiedad::find($id);
-
-
-// obtener vendedores
-$consulta = "SELECT * FROM vendedores";
-$resultado = mysqli_query($db, $consulta);
-
-// Validar 
-
-$errores = [];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $titulo = $_POST['titulo'];
-    $precio = $_POST['precio'];
-    $descripcion = $_POST['descripcion'];
-    $habitaciones = $_POST['habitaciones'];
-    $wc = $_POST['wc'];
-    $estacionamiento = $_POST['estacionamiento'];
-    $vendedor = $_POST['vendedorId'];
-
-
-    $imagen = $_FILES['imagen'] ?? null;
-
-
-    if (!$titulo) {
-        $errores[] = 'Debes añadir un Titulo';
-    }
-    if (!$precio) {
-        $errores[] = 'El Precio es Obligatorio';
-    }
-    if (strlen($descripcion) < 50) {
-        $errores[] = 'La Descripción es obligatoria y debe tener al menos 50 caracteres';
-    }
-    if (!$habitaciones) {
-        $errores[] = 'La Cantidad de Habitaciones es obligatoria';
-    }
-    if (!$wc) {
-        $errores[] = 'La cantidad de WC es obligatoria';
-    }
-    if (!$estacionamiento) {
-        $errores[] = 'La cantidad de lugares de estacionamiento es obligatoria';
-    }
-    if (!$vendedor) {
-        $errores[] = 'Elige un vendedor';
-    }
-
-    $medida = 2 * 1000 * 1000;
-
-    if ($imagen['size'] > $medida) {
-        $errores[] = 'La Imagen es muy grande';
-    }
-
-    // El array de errores esta vacio
-    if (empty($errores)) {
-        // Si hay una imagen NUEVA, entonces borrar la anterior.
-
-        //Subir la imagen
-        $carpetaImagenes = '../../imagenes/';
-        $rutaImagen = '';
-        
-        if (!is_dir($carpetaImagenes)) {
-            mkdir($carpetaImagenes);
-        }
-
-
-
-        if ($imagen) {
-
-            $carpetaEliminar = explode('/',  $propiedad['imagen']);
-
-            // Borrar la imagen anterior...
-            unlink($carpetaImagenes . $propiedad['imagen'] );
-
-            // Borra la carpeta
-            rmdir($carpetaImagenes . $carpetaEliminar[0] );
-
-            $imagePath = $carpetaImagenes . md5(uniqid(rand(), true)) . '/' . $imagen['name'];
-
-            // var_dump($imagePath);
-
-            mkdir(dirname($imagePath));
-
-            // var_dump($imagen);
-
-            move_uploaded_file($imagen['tmp_name'], $imagePath);
-
-            $rutaImagen = str_replace($carpetaImagenes, '', $imagePath);
-
-            // var_dump($rutaImagen);
-        }
-
-        // Insertar en la BD.
-        // echo "No hay errores";
-
-        $query = "UPDATE propiedades SET titulo = '${titulo}', precio = '${precio}', descripcion = '${descripcion}', habitaciones = '${habitaciones}', wc = '${wc}', estacionamiento = '${estacionamiento}', vendedorId = '${vendedor}', imagen = '${rutaImagen}'  WHERE id = '${id}' ";
-        // echo $query;
-
-
-        $resultado = mysqli_query($db, $query) or die(mysqli_error($db));
-        // var_dump($resultado);
-        // printf("Nuevo registro con el id %d.\n", mysqli_insert_id($db));
-
-        if ($resultado) {
-            header('location: /admin/index.php?mensaje=2');
-        }
-    }
-
-    // Insertar en la BD.
-
-
-}
-?>
-
-<?php
-$nombrePagina = 'Crear Propiedad';
 incluirTemplate('header');
 ?>
 
-<h1 class="fw-300 centrar-texto">Administración - Editar Propiedad</h1>
-
 <main class="contenedor seccion contenido-centrado">
+    <h1>Actualizar Propiedad</h1>
+    
     <a href="/admin" class="boton boton-verde">Volver</a>
 
     <?php foreach ($errores as $error) : ?>

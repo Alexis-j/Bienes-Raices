@@ -17,9 +17,9 @@
 
 // Ejecutar el codigo despues de que el usuario envia el formulario
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
+
         // Crea una nueva instanca de la clase Propiedad
-        $propiedad = new Propiedad($_POST);
+        $propiedad = new Propiedad($_POST['propiedad']);
 
         /*SUBIDA DE ARCHIVOS*/
         $carpetaImagenes = '../../imagenes/';
@@ -34,7 +34,7 @@
         // Setear la imagen
         // Realiza un resize a la imagen
         if ($_FILES['imagen']['tmp_name']) {
-            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+            $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
             $propiedad->setImagen($nombreImagen);
         }
 
