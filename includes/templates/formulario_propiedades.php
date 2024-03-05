@@ -1,41 +1,54 @@
 <fieldset>
-            <legend>Información General</legend>
-            <label for="titulo">Titulo:</label>
-            <input name="propiedad[titulo]" type="text" id="titulo" placeholder="Titulo Propiedad" value="<?php echo s( $propiedad->titulo ); ?>">
+    <legend>Información General</legend>
 
-            <label for="precio">Precio: </label>
-            <input name="propiedad[precio]" type="number" id="precio" placeholder="Precio" value="<?php echo s( $propiedad->precio ); ?>">
+    <label for="titulo">Titulo:</label>
+    <input type="text" id="titulo" name="propiedad[titulo]" placeholder="Titulo Propiedad" value="<?php echo s( $propiedad->titulo ); ?>">
 
-            <label for="imagen">Imagen: </label>
-            <input name="propiedad[imagen]" type="file" id="imagen">
-            <?php if ($propiedad->imagen) : ?>
-                <img src="/imagenes/<?php echo $propiedad->imagen; ?>" class="imagen-small">
+    <label for="precio">Precio:</label>
+    <input type="number" id="precio" name="propiedad[precio]" placeholder="Precio Propiedad" value="<?php echo s($propiedad->precio); ?>">
 
-            <?php endif; ?>
+    <label for="imagen">Imagen:</label>
+    <input type="file" id="imagen" accept="image/jpeg, image/png" name="propiedad[imagen]">
 
-            <label for="descripcion">Descripción:</label>
-            <textarea name="propiedad[descripcion]" id="descripcion"><?php echo s( $propiedad->descripcion ); ?></textarea>
+    <?php if($propiedad->imagen) { ?>
+        <img src="/imagenes/<?php echo $propiedad->imagen ?>" class="imagen-small">
+    <?php } ?>
 
-        </fieldset> 
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" name="propiedad[descripcion]"><?php echo s($propiedad->descripcion); ?></textarea>
 
-        <fieldset>
-            <legend>Información Propiedad</legend>
+</fieldset>
 
-            <label for="habitaciones">Habitaciones:</label>
-            <input name="propiedad[habitaciones]" type="number" min="1" max="10" step="1" id="habitaciones" value="<?php echo s( $propiedad->habitaciones ); ?>">
+<fieldset>
+    <legend>Información Propiedad</legend>
 
-            <label for="wc">Baños:</label>
-            <input name="propiedad[wc]" type="number" min="1" max="10" step="1" id="wc" value="<?php echo s( $propiedad->wc ); ?>">
+    <label for="habitaciones">Habitaciones:</label>
+    <input 
+        type="number" 
+        id="habitaciones" 
+        name="propiedad[habitaciones]" 
+        placeholder="Ej: 3" 
+        min="1" 
+        max="9" 
+        value="<?php echo s($propiedad->habitaciones); ?>">
 
-            <label for="estacionamiento">Estacionamiento:</label>
-            <input name="propiedad[estacionamiento]" type="number" min="1" max="10" step="1" id="estacionamiento" value="<?php echo s( $propiedad->estacionamiento ); ?>">
+    <label for="wc">Baños:</label>
+    <input type="number" id="wc" name="propiedad[wc]" placeholder="Ej: 3" min="1" max="9" value="<?php echo s($propiedad->wc); ?>">
 
-            <legend>Información Vendedor:</legend>
+    <label for="estacionamiento">Estacionamiento:</label>
+    <input type="number" id="estacionamiento" name="propiedad[estacionamiento]" placeholder="Ej: 3" min="1" max="9" 
+        value="<?php echo s($propiedad->estacionamiento); ?>">
 
-            <select name="vendedorId" id="nombre_vendedor">
-                <option selected value="">-- Seleccione --</option>
-                <?php while ($row = mysqli_fetch_assoc($resultado)) : ?>
-                    <option <?php echo $vendedor === $row['id'] ? 'selected' : '' ?> value="<?php echo $row['id']; ?>"><?php echo $row['nombre'] . " " . $row['apellido']; ?>
-                    <?php endwhile; ?>
-            </select>
-        </fieldset>
+</fieldset>
+
+<fieldset>
+    <legend>Vendedor</legend>
+    
+    <label for="vendedores_id">Vendedor</label>
+    <select name="propiedad[vendedores_id]" id="vendedores_Id">
+        <option selected value="">-- Seleccione --</option>
+        <?php foreach($vendedores as $vendedor) { ?>
+            <option <?php echo $propiedad->vendedores_id === $vendedores->id ? 'selected' : '' ?> value="<?php echo $vendedor->id; ?>"><?php echo s($vendedor->nombre) . " " . s($vendedor->apellido); ?></option>
+        <?php  } ?>
+    </select>
+</fieldset>

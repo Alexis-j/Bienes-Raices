@@ -1,100 +1,80 @@
-<?php
-    include '../../includes/app.php';
-
+<?php 
+    require '../../includes/app.php';
     use App\Propiedad;
-    // Proteger esta ruta.
-    use Intervention\Image\ImageManagerStatic as Image;
+    use App\Vendedor;
 
     estaAutenticado();
 
-    $db = conectarDb();
+    // Importar Intervention Image
+    use Intervention\Image\ImageManagerStatic as Image;
 
-    $consulta = "SELECT * FROM vendedores";
-    $resultado = mysqli_query($db, $consulta);
+    // Crear el objeto
+    $propiedad = new Propiedad;
 
-    // arreglo con mensajes de errores
+    // Consultar para obtener los vendedores
+    $vendedores = Vendedor::all();
+
+    // Arreglo con mensajes de errores
     $errores = Propiedad::getErrores();
 
-// Ejecutar el codigo despues de que el usuario envia el formulario
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ejecutar el código después de que el usuario envia el formulario
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        // Crea una nueva instanca de la clase Propiedad
+        /** Crea una nueva instancia */
         $propiedad = new Propiedad($_POST['propiedad']);
 
-        /*SUBIDA DE ARCHIVOS*/
-        $carpetaImagenes = '../../imagenes/';
-
-        if (!is_dir($carpetaImagenes)) {
-            mkdir($carpetaImagenes);
-        }
-        
-        // Generar un nombre unico
+        // Generar un nombre único
         $nombreImagen = md5( uniqid( rand(), true ) ) . ".jpg";
 
         // Setear la imagen
-        // Realiza un resize a la imagen
-        if ($_FILES['imagen']['tmp_name']) {
+        // Realiza un resize a la imagen con intervention
+        if($_FILES['propiedad']['tmp_name']['imagen']) {
             $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
             $propiedad->setImagen($nombreImagen);
         }
-
+        
         // Validar
         $errores = $propiedad->validar();
 
-        // El array de errores esta vacio
-        if (empty($errores)) {
-
-            //crear la carpeta para subir imagenes
-
-            if (!is_dir(CARPETA_IMAGENES)) {
+        if(empty($errores)) {
+        
+            // Crear la carpeta para subir imagenes
+            if(!is_dir(CARPETA_IMAGENES)) {
                 mkdir(CARPETA_IMAGENES);
             }
-        
-            // Guardar la imagen en el servidor
+
+            // Guarda la imagen en el servidor
             $image->save(CARPETA_IMAGENES . $nombreImagen);
 
-            //guardar en la base de datos
-            $resultado = $propiedad->guardar();
-
-            //mesaje de exito o error
-            if ($resultado) {
-                // Almacenar la imagen
-                header('Location: /admin?resultado=1');
-            }
+            // Guarda en la base de datos
+            $propiedad->guardar();
         }
     }
 
     incluirTemplate('header');
 ?>
 
-<?php
-$nombrePagina = 'Crear Propiedad';
-?>
+    <main class="contenedor seccion">
+        <h1>Crear</h1>
 
-<h1 class="fw-300 centrar-texto">Administración - Nueva Propiedad</h1>
+        
 
-<main class="contenedor seccion contenido-centrado">
-    <a href="/admin" class="boton boton-verde">Volver</a>
+        <a href="/admin" class="boton boton-verde">Volver</a>
 
-    <?php foreach ($errores as $error) : ?>
+        <?php foreach($errores as $error): ?>
         <div class="alerta error">
             <?php echo $error; ?>
         </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
 
-    <form class="formulario" method="POST" action="/admin/propiedades/crear.php" ="multipart/form-data">
-        <?php include '../../includes/templates/formulario_propiedades.php'; ?>
+        <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
+            <?php include '../../includes/templates/formulario_propiedades.php'; ?>
 
-        <input type="submit" value="Crear Propiedad" class="boton boton-verde">
+            <input type="submit" value="Crear Propiedad" class="boton boton-verde">
+        </form>
+        
+    </main>
 
-    </form>
-
-</main>
-
-<?php
-
-incluirTemplate('footer');
-
-mysqli_close($db); ?>
-
-</html>
+<?php 
+    incluirTemplate('footer');
+?> 
