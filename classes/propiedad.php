@@ -39,7 +39,7 @@ class Propiedad {
         $this->wc = $args['wc'] ?? '';
         $this->estacionamiento = $args['estacionamiento'] ?? '';
         $this->creado = date('Y/m/d');
-        $this->vendedores_id= $args['vendedores_id'] ?? ''; 
+        $this->vendedores_id= $args['vendedores_id'] ?? '1'; 
     }
 
     public function guardar(){
@@ -135,6 +135,8 @@ class Propiedad {
         return $resultado;
     }
 
+    //encuentra una propiedad por su id
+
     public static function consultarSQL($query){
         // consultar la base de datos
         $resultado = self::$db->query($query);
@@ -144,10 +146,8 @@ class Propiedad {
         while($registro = $resultado->fetch_assoc() ){
             $array[] = self::crearObjeto($registro);
         }
-
         // liberar la memoria
         $resultado->free();
-
         //retornar los resultados
         return $array;
     }
