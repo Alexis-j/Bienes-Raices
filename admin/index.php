@@ -1,6 +1,5 @@
 <?php 
 
-
     require '../includes/app.php';
     estaAutenticado();
 
@@ -100,10 +99,10 @@
                 <tr>
                     <td><?php echo $vendedor->id; ?></td>
                     <td><?php echo $vendedor->nombre . " " . $vendedor->apellido; ?></td>
-                    <td>$ <?php echo $vendedor->telefono; ?></td>
+                    <td>+506 <?php echo $vendedor->telefono; ?></td>
                     <td>
                         <form method="POST" class="w-100">
-                            <input type="hidden" name="id" value="<?php echo $vendedor->id; ?>">
+                            <input type="hidden" name="id" value="<?php echo $vendedor->$id; ?>">
                             <input type="hidden" name="tipo" value="vendedor">
                             <input type="submit" class="boton-rojo-block" value="Eliminar">
                         </form>

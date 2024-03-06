@@ -3,15 +3,15 @@
     $db = conectarDb();
 
     // cpnsultar
-    $consulta = "SELECT * FROM propiedades LIMIT ${limite}";
-    echo $consulta;
+    $consulta = "SELECT * FROM propiedades LIMIT {$limite}";
+    // echo $consulta;
 
     // Obtener el resultado
     $resultado = mysqli_query($db, $consulta);
 
 ?>
 
-<div class="contenedor-anuncios">
+<div class="contenedor seccion contenedor-anuncios ">
 <?php while($propiedad = mysqli_fetch_assoc($resultado)): ?>
         <div class="anuncio">
             <img src="/imagenes/<?php echo $propiedad['imagen']; ?>" alt="Anuncio casa en el lago">

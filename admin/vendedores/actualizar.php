@@ -28,7 +28,6 @@
 
         // Validación
         $errores = $vendedor->validar();
-       
 
         if(empty($errores)) {
             $vendedor->guardar();

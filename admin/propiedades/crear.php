@@ -2,11 +2,10 @@
     require '../../includes/app.php';
     use App\Propiedad;
     use App\Vendedor;
-
-    estaAutenticado();
-
+    
     // Importar Intervention Image
     use Intervention\Image\ImageManagerStatic as Image;
+    estaAutenticado();
 
     // Crear el objeto
     $propiedad = new Propiedad;

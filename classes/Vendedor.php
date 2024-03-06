@@ -5,18 +5,18 @@ namespace App;
 class Vendedor extends ActiveRecord {
     // Base DE DATOS
     protected static $tabla = 'vendedores';
-    protected static $columnasDB = ['id', 'nombre', 'apellido', 'telefono'];
+    protected static $columnasDB = ['id', 'nombre', 'apellidos', 'telefono'];
     
     public $id;
     public $nombre;
-    public $apellido;
+    public $apellidos;
     public $telefono;
 
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
-        $this->apellido = $args['apellido'] ?? '';
+        $this->apellidos = $args['apellidos'] ?? '';
         $this->telefono = $args['telefono'] ?? '';
     }
 
@@ -25,7 +25,7 @@ class Vendedor extends ActiveRecord {
             self::$errores[] = "El Nombre es Obligatorio";
         }
 
-        if(!$this->apellido) {
+        if(!$this->apellidos) {
             self::$errores[] = "El Apellido es Obligatorio";
         }
 
@@ -35,5 +35,4 @@ class Vendedor extends ActiveRecord {
 
         return self::$errores;
     }
-
 }
